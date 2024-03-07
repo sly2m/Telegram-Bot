@@ -39,7 +39,7 @@ jobs:
       uses: azure/aci-deploy@v1
       with:
         resource-group: MyGeneralResourceGroup
-        name: sly2m
+        name: telegram-bot
         image: ghcr.io/${{ github.repository_owner }}/telegram-bot:v1.0.0
         dns-name-label: telegram-bot
         location: canadaeast
