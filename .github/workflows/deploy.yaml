@@ -45,3 +45,5 @@ jobs:
         registry-login-server: ghcr.io
         registry-username: ${{ github.repository_owner }}
         registry-password: ${{ secrets.GHCR_PAT }}
+        ports: 3000:3000
+      
