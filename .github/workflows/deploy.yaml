@@ -44,4 +44,4 @@ jobs:
         location: canadaeast
         registry-login-server: ghcr.io
         registry-username: ${{ github.repository_owner }}
-        registry-password: ${{ secrets.GHCR_TOKEN }}
+        registry-password: ${{ secrets.GHCR_PAT }}
