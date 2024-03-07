@@ -28,3 +28,18 @@ jobs:
         context: .
         push: true
         tags: ghcr.io/${{ github.repository_owner }}/telegram-bot:v1.0.0
+
+
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+        
+    - name: Deploy to Azure Container Instances
+      uses: azure/aci-deploy@v1
+      with:
+        resource-group: MyGeneralResourceGroup
+        name: sly2m
+        image: ghcr.io/${{ github.repository_owner }}/telegram-bot:v1.0.0
+        dns-name-label: telegram-bot
+        location: canadaeast
