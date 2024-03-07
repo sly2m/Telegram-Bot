@@ -4,11 +4,9 @@ FROM alpine:latest
 # Set the working directory in the Docker image to /app
 WORKDIR /app
 
-# Install curl and Node.js
+# Install curl, bash and Node.js
 RUN apk update && \
-    apk add --no-cache curl && \
-    curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
-    apk add --no-cache nodejs
+    apk add --no-cache curl bash nodejs npm
 
 # Copy package.json and package-lock.json into the image
 COPY package*.json ./
