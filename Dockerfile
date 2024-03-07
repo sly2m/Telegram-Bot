@@ -1,5 +1,5 @@
 # Use Ubuntu 22.04 as base image
-FROM ubuntu:latest
+FROM ubuntu:alpine
 
 # Set the working directory in the Docker image to /app
 WORKDIR /app
