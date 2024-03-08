@@ -28,8 +28,6 @@ jobs:
         context: .
         push: true
         tags: ghcr.io/${{ github.repository_owner }}/telegram-bot:v1.0.0
-      # env:
-      #   BOT_API_KEY: ${{ secrets.BOT_API_KEY }}        
 
     - name: Login to Azure
       uses: azure/login@v1

@@ -2,7 +2,7 @@ const fetch = import('node-fetch');
 
 async function getStockInfo(symbol, stockAPIKey) {
     const fetch = (await import('node-fetch')).default;
-    const url = `https://api.marketdata.app/v1/stocks/quotes/${symbol}/?token=${stockAPIKey}`;
+    const url = `https://api.marketdata.app/v1/stocks/quotes/${symbol}/?token=${stockAPIKey}&dateformat=timestamp`;
     const response = await fetch(url);
     if (!response.ok) {
         return null;

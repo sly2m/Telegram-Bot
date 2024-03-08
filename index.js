@@ -50,7 +50,14 @@ bot.command(['stock'], async (ctx) => {
   } else {
     try {
       const data = await stockInfo.json();
-      await ctx.reply(data);
+      if (data.last[0]) {
+        console.log(data);
+        await ctx.reply(`Цена за акцию <b>${symbol}</b> сегодня ${data.last[0]} USD`,
+        {
+          parse_mode: 'HTML',
+        });
+        return;
+      }      
     } catch (error) {
       console.error(`Ошибка при получении информации об акциях ${symbol} `, error);
       await ctx.reply(`Ошибка при получении информации об акциях ${symbol} `);
