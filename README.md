@@ -11,6 +11,10 @@ To build and deploy the CI/CD pipeline, you need to set up the following GitHub 
 - `GHCR_PAT`: Your GitHub Container Registry Token.
 - `STOCK_API_KEY`: API KEY Token for stocks API provider
 
+And Variables:
+
+- `MEME_PAGE_URL`: Page with memes for scraping.
+
 ## Usage
 
 Before running the commands to start or stop the bot, make sure you are logged into your Azure account. You can do this by running `az login`.
