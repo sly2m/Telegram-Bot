@@ -10,4 +10,14 @@ async function getStockInfo(symbol, stockAPIKey) {
     return response;
 }
 
-module.exports = getStockInfo;
+async function getStockNews(symbol, stockAPIKey) {
+    const fetch = (await import('node-fetch')).default;
+    const url = `https://api.marketdata.app/v1/stocks/news/${symbol}/?token=${stockAPIKey}&dateformat=timestamp&limit=1`;
+    const response = await fetch(url);
+    if (!response.ok) {
+        return null;
+    }
+    return response;
+}
+
+module.exports = { getStockInfo, getStockNews };

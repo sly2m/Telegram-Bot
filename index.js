@@ -8,7 +8,7 @@ const {
 } = require('grammy');
 
 const bot = new Bot(process.env.BOT_API_KEY);
-const getStockInfo = require('./stock.js');
+const { getStockInfo, getStockNews } = require('./stock');
 
 const stockAPIKey = process.env.STOCK_API_KEY;
 
@@ -18,6 +18,8 @@ bot.api.setMyCommands([
   { command: 'start', description: 'Начало работы' },
   { command: 'id', description: 'Показать свой Telegram ID' },
   { command: 'share', description: 'Поделиться данными' },
+  { command: 'stock', description: 'Цена акции компании {TSLA}' },
+  { command: 'news', description: 'Новости о компании {TSLA}' },
 ]);
 
 // Commands
@@ -37,7 +39,7 @@ bot.command(['ID', 'id', 'Id', 'iD'], async (ctx) => {
 });
 
 bot.command(['stock'], async (ctx) => {
-  const symbol = ctx.msg.text.split(' ')[1].toUpperCase();
+  const symbol = ctx.match.toUpperCase();
   if (!symbol) {
     await ctx.reply('Не указан символ акции.');
     return;
@@ -61,6 +63,39 @@ bot.command(['stock'], async (ctx) => {
     } catch (error) {
       console.error(`Ошибка при получении информации об акциях ${symbol} `, error);
       await ctx.reply(`Ошибка при получении информации об акциях ${symbol} `);
+    }
+  }
+});
+
+bot.command(['news'], async (ctx) => {
+  const symbol = ctx.match.toUpperCase();
+  if (!symbol) {
+    await ctx.reply('Не указан символ акции.');
+    return;
+  }
+
+  const stockNews = await getStockNews(symbol, stockAPIKey);
+  if (!stockNews) {
+    await ctx.reply(`Не удалось получить новости о компании ${symbol}.`);
+    return;
+  } else {
+    try {
+      const data = await stockNews.json();
+      if (data.headline[0]) {
+        console.log(data);
+        await ctx.reply(`Последние новости <b>${symbol}</b> на сегодня.`,
+        {
+          parse_mode: 'HTML',
+        });      
+        await ctx.reply(`<a href="${data.source[0]}">${data.source[0]}</a>`,
+        {
+          parse_mode: 'HTML',
+        });
+        return;
+      }      
+    } catch (error) {
+      console.error(`Ошибка при получении информации о компании ${symbol} `, error);
+      await ctx.reply(`Ошибка при получении информации о компании ${symbol} `);
     }
   }
 });
