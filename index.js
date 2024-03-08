@@ -18,8 +18,8 @@ bot.api.setMyCommands([
   { command: 'start', description: 'Начало работы' },
   { command: 'id', description: 'Показать свой Telegram ID' },
   { command: 'share', description: 'Поделиться данными' },
-  { command: 'stock', description: 'Цена акции компании {TSLA}' },
-  { command: 'news', description: 'Новости о компании {TSLA}' },
+  { command: 'stock', description: 'Цена акций компании "четырехбуквенный код NASDAQ"' },
+  { command: 'news', description: 'Новости о компании "четырехбуквенный код NASDAQ"' },
 ]);
 
 // Commands
@@ -41,7 +41,7 @@ bot.command(['ID', 'id', 'Id', 'iD'], async (ctx) => {
 bot.command(['stock'], async (ctx) => {
   const symbol = ctx.match.toUpperCase();
   if (!symbol) {
-    await ctx.reply('Не указан символ акции.');
+    await ctx.reply('После команды требуется указать код компании.');
     return;
   }
 
@@ -70,7 +70,7 @@ bot.command(['stock'], async (ctx) => {
 bot.command(['news'], async (ctx) => {
   const symbol = ctx.match.toUpperCase();
   if (!symbol) {
-    await ctx.reply('Не указан символ акции.');
+    await ctx.reply('После команды требуется указать код компании..');
     return;
   }
 
