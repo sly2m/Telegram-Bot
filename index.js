@@ -46,14 +46,15 @@ bot.command('start', async (ctx) => {
             'Например так: /news NVDA\n' +
             '\n' +
             'Для получения случайного мема введите /randommeme\n' +
-            'Для получения своего Telegram ID введите /id\n',            
+            'Для получения своего Telegram ID введите /id\n' +
+            'Чтобы получить список команд бота введите /help\n',
         {
             parse_mode: 'HTML',
         }
     );
 });
 
-bot.command('help', async (ctx) => {    
+bot.command('help', async (ctx) => {
     await ctx.reply(
         'Для получения информации о цене акций компании введите /stock и тикер компании.\n' +
             '\n' +
@@ -64,7 +65,7 @@ bot.command('help', async (ctx) => {
             'Например так: /news NVDA\n' +
             '\n' +
             'Для получения случайного мема введите /randommeme\n' +
-            'Для получения своего Telegram ID введите /id\n',
+            'Для получения своего Telegram ID введите /id\n' +
             'Чтобы получить этот список команд еще раз введите /help\n',
         {
             parse_mode: 'HTML',
