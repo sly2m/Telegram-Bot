@@ -36,7 +36,7 @@ bot.api.setMyCommands([
 bot.command('start', async (ctx) => {
     await ctx.react('👍');
     await ctx.reply(
-        '<b>Привет! Я бот написанный пользователем sly2m.</b> https://t.me/sly_bot',
+        '<b>Привет! Я бот написанный пользователем sly2m.</b> https://t.me/sly2m_bot',
         {
             parse_mode: 'HTML',
         }
