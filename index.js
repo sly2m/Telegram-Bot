@@ -9,7 +9,7 @@ const {
 
 const bot = new Bot(process.env.BOT_API_KEY);
 const { getStockInfo, getStockNews } = require('./stock');
-const { getMemes } = require('./webparser.js');
+const { getMemes } = require('./memeparser.js');
 
 const stockAPIKey = process.env.STOCK_API_KEY;
 const memePageUrl = process.env.MEME_PAGE_URL;

@@ -1,25 +1,27 @@
-async function getMemes(url) {
-    const cheerio = await import('cheerio');
-    const got = (await import('got')).default;
+// temporary disabled
 
-    const response = await got(url);
-    var $ = cheerio.load(response.body);
+// async function getMemes(url) {
+//     const cheerio = await import('cheerio');
+//     const got = (await import('got')).default;
 
-    var memes = $('h2.base-unit-title a' );
+//     const response = await got(url);
+//     var $ = cheerio.load(response.body);
 
-    for (let i = 0; i < memes.length; i++) {
-        memes[i] = parseImageUrl(memes[i].attribs['href']);
-    }  
-    // return random meme from the list
-    return memes[Math.floor(Math.random() * memes.length)];
-}
+//     var memes = $('h2.base-unit-title a' );
 
-function parseImageUrl(input) {
-    const parts = input.split('/');
-    const type = parts[1];
-    const id = parts[2];
-    const extension = type === 'gif' ? 'gif' : 'jpg';
-    return `i.imgflip.com/${id}.${extension}`;
-}
+//     for (let i = 0; i < memes.length; i++) {
+//         memes[i] = parseImageUrl(memes[i].attribs['href']);
+//     }  
+//     // return random meme from the list
+//     return memes[Math.floor(Math.random() * memes.length)];
+// }
 
-module.exports = { getMemes };
+// function parseImageUrl(input) {
+//     const parts = input.split('/');
+//     const type = parts[1];
+//     const id = parts[2];
+//     const extension = type === 'gif' ? 'gif' : 'jpg';
+//     return `i.imgflip.com/${id}.${extension}`;
+// }
+
+// module.exports = { getMemes };
