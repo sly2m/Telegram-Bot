@@ -18,6 +18,7 @@ const memePageUrl = process.env.MEME_PAGE_URL;
 
 bot.api.setMyCommands([
     { command: 'start', description: 'Начало работы' },
+    { command: 'help', description: 'Список команд бота' },
     { command: 'id', description: 'Показать свой Telegram ID' },
     {
         command: 'stock',
@@ -46,6 +47,25 @@ bot.command('start', async (ctx) => {
             '\n' +
             'Для получения случайного мема введите /randommeme\n' +
             'Для получения своего Telegram ID введите /id\n',            
+        {
+            parse_mode: 'HTML',
+        }
+    );
+});
+
+bot.command('help', async (ctx) => {    
+    await ctx.reply(
+        'Для получения информации о цене акций компании введите /stock и тикер компании.\n' +
+            '\n' +
+            'Например так: /stock TSLA\n' +
+            '\n' +
+            'Для получения новостей о компании введите /news и код компании.\n' +
+            '\n' +
+            'Например так: /news NVDA\n' +
+            '\n' +
+            'Для получения случайного мема введите /randommeme\n' +
+            'Для получения своего Telegram ID введите /id\n',
+            'Чтобы получить этот список команд еще раз введите /help\n',
         {
             parse_mode: 'HTML',
         }
