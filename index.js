@@ -45,7 +45,7 @@ bot.command('start', async (ctx) => {
             'Например так: /news NVDA.\n' +
             '\n' +
             'Для получения случайного мема введите /randommeme.\n' +
-            'Для получения своего Telegram ID введите /id.\n' +            
+            'Для получения своего Telegram ID введите /id.\n',            
         {
             parse_mode: 'HTML',
         }
