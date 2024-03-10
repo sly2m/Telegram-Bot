@@ -20,14 +20,16 @@ async function getRandomMeme(url) {
         for (let i = 0; i < json.data.posts.length; i++) {
             if (json.data.posts[i].images.image460sv) {
                 // mp4 - animated
-                memes.push(json.data.posts[i].images.image460sv.url);
+                // let's skip animated for now
+                //memes.push(json.data.posts[i].images.image460sv.url);
             } else {
-                if (json.data.posts[8].images.image700) {
+                if (json.data.posts[i].images.image700) {
                     // jpg - static
                     memes.push(json.data.posts[i].images.image700.url);
-                } else {
-                    memes.push(null);
-                }
+                } 
+                // else {
+                //     memes.push(null);
+                // }
             }
         }
     }
