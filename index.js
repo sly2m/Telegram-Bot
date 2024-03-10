@@ -125,8 +125,9 @@ bot.command(['news'], async (ctx) => {
                         parse_mode: 'HTML',
                     }
                 );
+                const randomIndex = Math.floor(Math.random() * data.source.length);
                 await ctx.reply(
-                    `<a href="${data.source[0]}">${data.source[0]}</a>`,
+                    `<a href="${data.source[randomIndex]}">${data.source[randomIndex]}</a>`,
                     {
                         parse_mode: 'HTML',
                     }
