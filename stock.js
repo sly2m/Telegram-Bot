@@ -10,7 +10,7 @@ async function getStockInfo(symbol, stockAPIKey) {
 
 async function getStockNews(symbol, stockAPIKey) {
     const fetch = (await import('node-fetch')).default;
-    const url = `https://api.marketdata.app/v1/stocks/news/${symbol}/?token=${stockAPIKey}&dateformat=timestamp&limit=1`;
+    const url = `https://api.marketdata.app/v1/stocks/news/${symbol}/?token=${stockAPIKey}&dateformat=timestamp&limit=10`;
     const response = await fetch(url);
     if (!response.ok) {
         return null;
