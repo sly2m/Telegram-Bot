@@ -1,18 +1,6 @@
 async function getAnekdot(search, url) {
-    const cheerio = await import('cheerio');
-    const got = (await import('got')).default;
-
-    const fullUrl = url + encodeURIComponent(search);
-    const response = await got(fullUrl);
-    var $ = cheerio.load(response.body);
-
-    var aneks = $('div.text' );
-
-    for (let i = 0; i < aneks.length; i++) {
-        aneks[i].text = parseAnekdot(aneks[i].children);
-    }  
-    // return random meme from the list
-    return aneks[Math.floor(Math.random() * aneks.length)].text;
+    const searchUrl = url + encodeURIComponent(search);
+    return await getRandomAnekdot(searchUrl);
 }
 
 async function getRandomAnekdot(url) {

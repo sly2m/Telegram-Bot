@@ -9,13 +9,13 @@ const {
 
 const bot = new Bot(process.env.BOT_API_KEY);
 const { getStockInfo, getStockNews } = require('./stock');
-const { getMemes } = require('./memeparser.js');
+const { getRandomMeme } = require('./memeparser.js');
 const { getAnekdot, getRandomAnekdot } = require('./anek.js');
 
 const stockAPIKey = process.env.STOCK_API_KEY;
 const memePageUrl = process.env.MEME_PAGE_URL;
 const anekPageUrl = process.env.ANEK_PAGE_URL;
-const anekWeekUrl = process.env.ANEK_WEEK_URL;
+const anekSearchUrl = process.env.ANEK_SEARCH_URL;
 
 //  myCommands //
 
@@ -35,52 +35,32 @@ bot.api.setMyCommands([
     { command: 'anek', description: 'Показать случайный анекдот' },
 ]);
 
+const commands =
+    'Для информации о цене акций компании введите /stock и тикер компании.\n' +
+    'Например так: /stock TSLA\n' +
+    '\n' +
+    'Для новостей о компании введите /news и код компании.\n' +
+    'Например так: /news NVDA\n' +
+    '\n' +
+    'Для случайного мема введите /meme\n' +
+    '\n' +
+    'Для случайного анекдота введите /anek \n' +
+    '\n' +
+    "Для анекдота на заданную тему введите /anek 'тема анекдота'\n" +
+    '\n' +
+    'Для получения своего Telegram ID введите /id\n' +
+    '\n' +
+    'Чтобы увидеть этот список команд бота введите /help\n';
+
 // Commands //
 
 bot.command('start', async (ctx) => {
     await ctx.react('👍');
-    await ctx.reply(
-        '<b>Поехали!</b>\n\n' +
-            'Для информации о цене акций компании введите /stock и тикер компании.\n' +
-            'Например так: /stock TSLA\n' +
-            '\n' +
-            'Для новостей о компании введите /news и код компании.\n' +
-            'Например так: /news NVDA\n' +
-            '\n' +
-            'Для случайного мема введите /meme\n' +
-            '\n' +
-            'Для случайного анекдота введите /anek \n' +
-            "Для анекдота на заданную тему введите /anek 'тема анекдота'\n" +
-            '\n' +
-            'Для получения своего Telegram ID введите /id\n' +
-            '\n' +
-            'Чтобы увидеть список команд бота введите /help\n',
-        {
-            parse_mode: 'HTML',
-        }
-    );
+    await ctx.reply('<b>Поехали!</b>\n\n' + commands, { parse_mode: 'HTML' });
 });
 
 bot.command('help', async (ctx) => {
-    await ctx.reply(
-        'Для информации о цене акций компании введите /stock и тикер компании.\n' +
-            'Например так: /stock TSLA\n' +
-            '\n' +
-            'Для новостей о компании введите /news и код компании.\n' +
-            'Например так: /news NVDA\n' +
-            '\n' +
-            'Для случайного мема введите /meme\n' +
-            '\n' +
-            'Для случайного анекдота введите /anek \n' +
-            "Для анекдота на заданную тему введите /anek 'тема анекдота'\n" +
-            '\n' +
-            'Для получения своего Telegram ID введите /id\n' +
-            '\n' +
-            'Чтобы увидеть этот список команд еще раз введите /help\n',
-        {
-            parse_mode: 'HTML',
-        }
-    );
+    await ctx.reply( commands, { parse_mode: 'HTML' });
 });
 
 bot.command(['ID', 'id', 'Id', 'iD'], async (ctx) => {
@@ -196,13 +176,13 @@ bot.command('jump', async (ctx) => {
 });
 
 bot.command(['meme'], async (ctx) => {
-    const meme = await getMemes(memePageUrl);
+    var meme = await getRandomMeme(memePageUrl);
+
     if (!meme) {
         await ctx.reply(`Не удалось найти ни одного мема.`);
         return;
     } else {
         try {
-            console.log(meme);
             await ctx.reply(meme);
             return;
         } catch (error) {
@@ -215,12 +195,12 @@ bot.command(['meme'], async (ctx) => {
 });
 
 bot.command(['anek'], async (ctx) => {
-    const symbol = ctx.match;
     var anek = '';
+    const symbol = ctx.match;
     if (!symbol || symbol === '') {
-        anek = await getRandomAnekdot(anekWeekUrl);
+        anek = await getRandomAnekdot(anekPageUrl);
     } else {
-        anek = await getAnekdot(symbol, anekPageUrl);
+        anek = await getAnekdot(symbol, anekSearchUrl);
     }
     if (!anek) {
         await ctx.reply(`Не удалось найти такого анекдота.`);

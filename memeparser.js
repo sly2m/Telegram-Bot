@@ -3,9 +3,9 @@ async function getFetch(url) {
     return fetch(url);
 }
 
-async function getMemes(url) {
-    let res = await getFetch(url);
-    let json = await res.json();
+async function getRandomMeme(url) {
+    let response = await getFetch(url);
+    let json = await response.json();
     let memes = [];
     if (json['meta']['status'] !== 'Success') {
         if (
@@ -34,4 +34,4 @@ async function getMemes(url) {
     return memes[Math.floor(Math.random() * memes.length)];
 }
 
-module.exports = { getMemes };
+module.exports = { getRandomMeme };
