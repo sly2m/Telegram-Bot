@@ -13,7 +13,9 @@ To build and deploy the CI/CD pipeline, you need to set up the following GitHub 
 
 And Variables:
 
-- `MEME_PAGE_URL`: Page with memes for scraping.
+- `MEME_PAGE_URL`: Page with memes for random meme scraping.
+- `ANEK_PAGE_URL`: Page with anekdots for scraping.
+- `ANEK_WEEK_URL`: Page with weekly anekdots for random anekdot scraping.
 
 ## Usage
 

@@ -50,4 +50,6 @@ jobs:
           BOT_API_KEY=${{ secrets.BOT_API_KEY }}
           STOCK_API_KEY=${{ secrets.STOCK_API_KEY }}
           MEME_PAGE_URL=${{ vars.MEME_PAGE_URL }}
+          ANEK_PAGE_URL=${{ vars.ANEK_PAGE_URL }}
+          ANEK_WEEK_URL=${{ vars.ANEK_WEEK_URL }}
         
