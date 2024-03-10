@@ -148,36 +148,6 @@ bot.command(['news'], async (ctx) => {
     }
 });
 
-bot.command('share', async (ctx) => {
-    let keyboard = null;
-    if (ctx.chat.type === 'group' || ctx.chat.type === 'supergroup') {
-        await ctx.reply('Данная команда доступна только в приватном чате.');
-        return;
-    } else {
-        keyboard = new Keyboard()
-            .requestLocation('Геолокация')
-            .requestContact('Контакт')
-            .requestPoll('Опрос')
-            .placeholder('Выбери тип данных...')
-            .resized()
-            .oneTime();
-    }
-
-    await ctx.reply('Чем хочешь поделиться?', {
-        reply_markup: keyboard,
-    });
-});
-
-bot.command('jump', async (ctx) => {
-    const keyboard = new InlineKeyboard().url(
-        'Перейти google.com',
-        'http://google.com'
-    );
-    await ctx.reply('Уйти из телеграма?', {
-        reply_markup: keyboard,
-    });
-});
-
 bot.command(['meme'], async (ctx) => {
     var meme = await getRandomMeme(memePageUrl);
 
@@ -197,7 +167,7 @@ bot.command(['meme'], async (ctx) => {
     }
 });
 
-bot.command(['joke'], async (ctx) => {
+bot.command(['joke', 'anek'], async (ctx) => {
     var joke = '';
     const symbol = ctx.match;
     if (!symbol || symbol === '') {
@@ -223,15 +193,45 @@ bot.command(['joke'], async (ctx) => {
     }
 });
 
+// bot.command('share', async (ctx) => {
+//     let keyboard = null;
+//     if (ctx.chat.type === 'group' || ctx.chat.type === 'supergroup') {
+//         await ctx.reply('Данная команда доступна только в приватном чате.');
+//         return;
+//     } else {
+//         keyboard = new Keyboard()
+//             .requestLocation('Геолокация')
+//             .requestContact('Контакт')
+//             .requestPoll('Опрос')
+//             .placeholder('Выбери тип данных...')
+//             .resized()
+//             .oneTime();
+//     }
+
+//     await ctx.reply('Чем хочешь поделиться?', {
+//         reply_markup: keyboard,
+//     });
+// });
+
+// bot.command('jump', async (ctx) => {
+//     const keyboard = new InlineKeyboard().url(
+//         'Перейти google.com',
+//         'http://google.com'
+//     );
+//     await ctx.reply('Уйти из телеграма?', {
+//         reply_markup: keyboard,
+//     });
+// });
+
 // Messages //
 
-bot.on(':contact', async (ctx) => {
-    await ctx.reply('Спасибо за контакт!');
-});
+// bot.on(':contact', async (ctx) => {
+//     await ctx.reply('Спасибо за контакт!');
+// });
 
-bot.on(':location', async (ctx) => {
-    await ctx.reply('Спасибо за геолокацию!');
-});
+// bot.on(':location', async (ctx) => {
+//     await ctx.reply('Спасибо за геолокацию!');
+// });
 
 // Errors //
 
