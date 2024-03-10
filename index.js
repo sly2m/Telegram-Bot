@@ -10,7 +10,7 @@ const {
 const bot = new Bot(process.env.BOT_API_KEY);
 const { getStockInfo, getStockNews } = require('./stock');
 const { getRandomMeme } = require('./memeparser.js');
-const { getAnekdot, getRandomAnekdot } = require('./joke.js');
+const { getJoke, getRandomJoke: getRandomJoke } = require('./joke.js');
 
 const stockAPIKey = process.env.STOCK_API_KEY;
 const memePageUrl = process.env.MEME_PAGE_URL;
@@ -201,12 +201,12 @@ bot.command(['joke'], async (ctx) => {
     var joke = '';
     const symbol = ctx.match;
     if (!symbol || symbol === '') {
-        joke = await getRandomAnekdot(anekPageUrl);
+        joke = await getRandomJoke(anekPageUrl);
     } else {
-        joke = await getAnekdot(symbol, anekSearchUrl);
+        joke = await getJoke(symbol, anekSearchUrl);
     }
     if (!joke) {
-        await ctx.reply(`Не удалось найти такого анекдота.`);
+        await ctx.reply(`Почему-то не получилось найти такой шутки.`);
         return;
     } else {
         try {
@@ -215,9 +215,9 @@ bot.command(['joke'], async (ctx) => {
             });
             return;
         } catch (error) {
-            console.error(`Ошибка при поиске анекдота`, error);
+            console.error(`Ошибка при поиске шутки`, error);
             await ctx.reply(
-                `Произошла ошибка при поиске анекдота. Попоробуйте еще раз через минуту.`
+                `Произошла ошибка при поиске шутки. Попоробуйте еще раз через минуту.`
             );
         }
     }

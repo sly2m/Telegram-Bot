@@ -1,9 +1,9 @@
-async function getAnekdot(search, url) {
+async function getJoke(search, url) {
     const searchUrl = url + encodeURIComponent(search);
-    return await getRandomAnekdot(searchUrl);
+    return await getRandomJoke(searchUrl);
 }
 
-async function getRandomAnekdot(url) {
+async function getRandomJoke(url) {
     const cheerio = await import('cheerio');
     const got = (await import('got')).default;
 
@@ -13,13 +13,13 @@ async function getRandomAnekdot(url) {
     var aneks = $('div.text');
 
     for (let i = 0; i < aneks.length; i++) {
-        aneks[i].text = parseAnekdot(aneks[i].children);
+        aneks[i].text = parseJoke(aneks[i].children);
     }
     // return random meme from the list
     return aneks[Math.floor(Math.random() * aneks.length)].text;
 }
 
-function parseAnekdot(input) {
+function parseJoke(input) {
     var output = '';
     for (let i = 0; i < input.length; i++) {
         if (input[i].type === 'text') {
@@ -33,4 +33,4 @@ function parseAnekdot(input) {
     return output;
 }
 
-module.exports = { getAnekdot, getRandomAnekdot };
+module.exports = { getJoke, getRandomJoke };
