@@ -10,7 +10,7 @@ const {
 const bot = new Bot(process.env.BOT_API_KEY);
 const { getStockInfo, getStockNews } = require('./stock');
 const { getRandomMeme } = require('./memeparser.js');
-const { getAnekdot, getRandomAnekdot } = require('./anek.js');
+const { getAnekdot, getRandomAnekdot } = require('./joke.js');
 
 const stockAPIKey = process.env.STOCK_API_KEY;
 const memePageUrl = process.env.MEME_PAGE_URL;
@@ -22,7 +22,7 @@ const anekSearchUrl = process.env.ANEK_SEARCH_URL;
 bot.api.setMyCommands([
     { command: 'start', description: 'Начало работы' },
     { command: 'help', description: 'Список команд бота' },
-    { command: 'id', description: 'Показать свой Telegram ID' },
+    { command: 'id', description: 'Покажи мой Telegram ID' },
     {
         command: 'stock',
         description: 'Тикер компании, например /stock TSLA',
@@ -31,8 +31,8 @@ bot.api.setMyCommands([
         command: 'news',
         description: 'Новости компании, например /news NVDA',
     },
-    { command: 'meme', description: 'Показать случайный мем' },
-    { command: 'anek', description: 'Показать случайный анекдот' },
+    { command: 'meme', description: 'Покажи случайный мем' },
+    { command: 'joke', description: 'Пошути' },
 ]);
 
 const commands =
@@ -44,9 +44,9 @@ const commands =
     '\n' +
     'Для случайного мема введите /meme\n' +
     '\n' +
-    'Для случайного анекдота введите /anek \n' +
+    'Для случайной шутки введите /joke \n' +
     '\n' +
-    "Для анекдота на заданную тему введите /anek 'тема анекдота'\n" +
+    "Для шутки на заданную тему введите /joke 'тема шутки'\n" +
     '\n' +
     'Для получения своего Telegram ID введите /id\n' +
     '\n' +
@@ -60,7 +60,7 @@ bot.command('start', async (ctx) => {
 });
 
 bot.command('help', async (ctx) => {
-    await ctx.reply( commands, { parse_mode: 'HTML' });
+    await ctx.reply(commands, { parse_mode: 'HTML' });
 });
 
 bot.command(['ID', 'id', 'Id', 'iD'], async (ctx) => {
@@ -125,7 +125,9 @@ bot.command(['news'], async (ctx) => {
                         parse_mode: 'HTML',
                     }
                 );
-                const randomIndex = Math.floor(Math.random() * data.source.length);
+                const randomIndex = Math.floor(
+                    Math.random() * data.source.length
+                );
                 await ctx.reply(
                     `<a href="${data.source[randomIndex]}">${data.source[randomIndex]}</a>`,
                     {
@@ -195,20 +197,20 @@ bot.command(['meme'], async (ctx) => {
     }
 });
 
-bot.command(['anek'], async (ctx) => {
-    var anek = '';
+bot.command(['joke'], async (ctx) => {
+    var joke = '';
     const symbol = ctx.match;
     if (!symbol || symbol === '') {
-        anek = await getRandomAnekdot(anekPageUrl);
+        joke = await getRandomAnekdot(anekPageUrl);
     } else {
-        anek = await getAnekdot(symbol, anekSearchUrl);
+        joke = await getAnekdot(symbol, anekSearchUrl);
     }
-    if (!anek) {
+    if (!joke) {
         await ctx.reply(`Не удалось найти такого анекдота.`);
         return;
     } else {
         try {
-            await ctx.reply(anek, {
+            await ctx.reply(joke, {
                 parse_mode: 'HTML',
             });
             return;
