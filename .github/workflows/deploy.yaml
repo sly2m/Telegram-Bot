@@ -49,6 +49,7 @@ jobs:
         environment-variables: 
           BOT_API_KEY=${{ secrets.BOT_API_KEY }}
           STOCK_API_KEY=${{ secrets.STOCK_API_KEY }}
+          CURRENCY_API_KEY=${{ secrets.CURRENCY_API_KEY }}
           MEME_PAGE_URL=${{ vars.MEME_PAGE_URL }}
           ANEK_PAGE_URL=${{ vars.ANEK_PAGE_URL }}
           ANEK_SEARCH_URL=${{ vars.ANEK_SEARCH_URL }}

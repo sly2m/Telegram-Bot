@@ -11,11 +11,13 @@ const bot = new Bot(process.env.BOT_API_KEY);
 const { getStockInfo, getStockNews } = require('./stock');
 const { getRandomMeme } = require('./memeparser.js');
 const { getJoke, getRandomJoke: getRandomJoke } = require('./joke.js');
+const { getCurrencyInfo } = require('./currency');
 
 const stockAPIKey = process.env.STOCK_API_KEY;
 const memePageUrl = process.env.MEME_PAGE_URL;
 const anekPageUrl = process.env.ANEK_PAGE_URL;
 const anekSearchUrl = process.env.ANEK_SEARCH_URL;
+const currencyAPIKey = process.env.CURRENCY_API_KEY;
 
 //  myCommands //
 
@@ -33,6 +35,7 @@ bot.api.setMyCommands([
     },
     { command: 'meme', description: 'Покажи случайный мем' },
     { command: 'joke', description: 'Пошути' },
+    { command: 'c', description: 'Курс валют' },
 ]);
 
 const commands =
@@ -47,6 +50,8 @@ const commands =
     'Для случайной шутки введите /joke \n' +
     '\n' +
     "Для шутки на заданную тему введите /joke 'тема шутки'\n" +
+    '\n' +
+    "Для конвертации курса одной валюты в другую (включая крипто и металлы) введите /с '100 RUB in USD'\n" +
     '\n' +
     'Для получения своего Telegram ID введите /id\n' +
     '\n' +
@@ -82,7 +87,6 @@ bot.command(['stock'], async (ctx) => {
         try {
             const data = await stockInfo.json();
             if (data.last[0]) {
-                console.log(data);
                 await ctx.reply(
                     `Цена за акцию <b>${symbol}</b> сегодня ${data.last[0]} USD`,
                     {
@@ -118,7 +122,6 @@ bot.command(['news'], async (ctx) => {
         try {
             const data = await stockNews.json();
             if (data.headline[0]) {
-                console.log(data);
                 await ctx.reply(
                     `Последние новости <b>${symbol}</b> на сегодня.`,
                     {
@@ -190,6 +193,24 @@ bot.command(['joke', 'anek'], async (ctx) => {
                 `Произошла ошибка при поиске шутки. Попоробуйте еще раз через минуту.`
             );
         }
+    }
+});
+
+bot.command(['c', 'C'], async (ctx) => {
+    const symbol = ctx.match.toUpperCase();
+    if (!symbol) {
+        await ctx.reply(
+            "После команды требуется указать что-то вроде '123 SOL in USD'."
+        );
+        return;
+    }
+
+    const currencyResult = await getCurrencyInfo(symbol, currencyAPIKey);
+    if (!currencyResult) {
+        await ctx.reply(`Не удалось посчитать ${symbol}.`);
+        return;
+    } else {
+        await ctx.reply(`${currencyResult}`);
     }
 });
 
