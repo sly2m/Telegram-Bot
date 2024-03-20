@@ -197,12 +197,16 @@ bot.command(['joke', 'anek'], async (ctx) => {
 });
 
 bot.command(['c', 'C'], async (ctx) => {
-    const symbol = ctx.match.toUpperCase();
+    var symbol = ctx.match.toUpperCase();
     if (!symbol) {
         await ctx.reply(
             "После команды требуется указать что-то вроде '123 SOL in USD'."
         );
         return;
+    }
+    else {
+        // change all ',' to '.'
+        symbol = symbol.replaceAll(',', '.');
     }
 
     const currencyResult = await getCurrencyInfo(symbol, currencyAPIKey);
