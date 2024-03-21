@@ -27,7 +27,7 @@ bot.api.setMyCommands([
     { command: 'id', description: 'Покажи мой Telegram ID' },
     {
         command: 'stock',
-        description: 'Тикер компании, например /stock TSLA',
+        description: 'пример /stock TSLA',
     },
     {
         command: 'news',
