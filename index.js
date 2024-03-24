@@ -213,8 +213,11 @@ bot.command(['c', 'C'], async (ctx) => {
     if (!currencyResult) {
         await ctx.reply(`Не удалось посчитать ${symbol}.`);
         return;
-    } else {
-        await ctx.reply(`${currencyResult}`);
+    } else if (currencyResult.error === true) {
+        await ctx.reply(`Error. ${currencyResult.message}`);
+    }
+    else {
+        await ctx.reply(`${currencyResult.message}`);
     }
 });
 

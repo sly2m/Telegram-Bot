@@ -18,9 +18,18 @@ async function getCurrencyInfo(symbol, currencyAPIKey) {
             var rate = response.data[currencies].value;
             var result = (value * rate).toFixed(2);
             var output = `${value} ${base_currency} = ${result} ${currencies}`;
-            return output;
-        } else {
-            return null;
+            return { error: false, message: output };
+        } else if (response.message && response.message === 'Validation error') {
+            if (response.errors && response.errors.base_currency != null)
+            {
+                return { error: true, message: 'Base currency not found.' };
+            }
+            else if (response.errors && response.errors.currencies != null) {                
+                return { error: true, message: 'Selected currency not found.' };
+            }
+            else {
+                return { error: true, message: 'Unknown error.' };
+            }            
         }
     }
 }
