@@ -129,4 +129,4 @@ dist
 .yarn/install-state.gz
 .pnp.*
 local-terminus-418420-fa6efa47ac69.json
-GCP_SA_KEY.json
+googlecloud.json
