@@ -16,18 +16,18 @@ jobs:
     #   uses: docker/setup-buildx-action@v1
 
     # - name: Login to GitHub Container Registry
-      uses: docker/login-action@v1
-      with:
-        registry: ghcr.io
-        username: ${{ github.repository_owner }}
-        password: ${{ secrets.GHCR_PAT }}
+    #   uses: docker/login-action@v1
+    #   with:
+    #     registry: ghcr.io
+    #     username: ${{ github.repository_owner }}
+    #     password: ${{ secrets.GHCR_PAT }}
 
     # - name: Build and push Docker image
-      uses: docker/build-push-action@v2
-      with:
-        context: .
-        push: true
-        tags: ghcr.io/${{ github.repository_owner }}/telegram-bot:v1.0.0
+    #   uses: docker/build-push-action@v2
+    #   with:
+    #     context: .
+    #     push: true
+    #     tags: ghcr.io/${{ github.repository_owner }}/telegram-bot:v1.0.0
 
     # - name: Login to Azure
     #   uses: azure/login@v1
@@ -53,7 +53,6 @@ jobs:
     #       MEME_PAGE_URL=${{ vars.MEME_PAGE_URL }}
     #       ANEK_PAGE_URL=${{ vars.ANEK_PAGE_URL }}
     #       ANEK_SEARCH_URL=${{ vars.ANEK_SEARCH_URL }}
-        
 
     - name: Set up Google Cloud SDK
       uses: google-github-actions/setup-gcloud@v0.2.1
