@@ -62,13 +62,13 @@ jobs:
         export_default_credentials: true
 
     - name: Build and Push Docker image to Google Container Registry
-      run: gcloud builds submit --tag gcr.io/$GCP_PROJECT_ID/telegram-bot:v1.0.0 .
+      run: gcloud builds submit --tag gcr.io/${{ secrets.GCP_PROJECT_ID }}/telegram-bot:v1.0.0 .
 
     - name: Deploy to Google Cloud Run
       uses: google-github-actions/deploy-cloudrun@v0.2.0
       with:
         service: telegram-bot
-        image: gcr.io/$GCP_PROJECT_ID/telegram-bot:v1.0.0
+        image: gcr.io/${{ secrets.GCP_PROJECT_ID }}/telegram-bot:v1.0.0
         region: us-central1
         env_vars: 
           BOT_API_KEY=${{ secrets.BOT_API_KEY }},
