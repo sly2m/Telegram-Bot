@@ -16,6 +16,8 @@ RUN npm install
 
 # Add port forwarding
 EXPOSE 3000
+ENV NODE_ENV=production \
+HOSTNAME="0.0.0.0" 
 
 # Copy the rest of your project's source code into the image
 COPY . .
