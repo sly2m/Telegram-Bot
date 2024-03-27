@@ -15,9 +15,10 @@ COPY package*.json ./
 RUN npm install
 
 # Add port forwarding
-EXPOSE 3000
+ENV HOST 0.0.0.0
 ENV NODE_ENV=production \
 HOSTNAME="0.0.0.0" 
+EXPOSE 3000
 
 # Copy the rest of your project's source code into the image
 COPY . .
