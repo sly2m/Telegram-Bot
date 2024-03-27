@@ -14,6 +14,9 @@ COPY package*.json ./
 # Install any project dependencies
 RUN npm install
 
+# Add port forwarding
+EXPOSE 3000
+
 # Copy the rest of your project's source code into the image
 COPY . .
 
