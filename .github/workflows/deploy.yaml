@@ -25,3 +25,4 @@ jobs:
             HD_MEME_PAGE_URL: ${{ vars.MEME_PAGE_URL }}
             HD_ANEK_PAGE_URL: ${{ vars.ANEK_PAGE_URL }}
             HD_ANEK_SEARCH_URL: ${{ vars.ANEK_SEARCH_URL }}
+            HD_PORT: 3000
