@@ -61,7 +61,7 @@ const commands =
 
 bot.command('start', async (ctx) => {
     await ctx.react('👍');
-    await ctx.reply('<b>Поехали!</b>\n\n' + commands, { parse_mode: 'HTML' });
+    await ctx.reply('<b>Поехали 2.0!</b>\n\n' + commands, { parse_mode: 'HTML' });
 });
 
 bot.command('help', async (ctx) => {
