@@ -18,7 +18,6 @@ jobs:
           heroku_email: "artemprokhorov@gmail.com"
           usedocker: true
           stack: "container"
-          healthcheck: true
         env:
             HD_BOT_API_KEY: ${{ secrets.BOT_API_KEY }}
             HD_STOCK_API_KEY: ${{ secrets.STOCK_API_KEY }}
