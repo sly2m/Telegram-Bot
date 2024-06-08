@@ -17,7 +17,7 @@ jobs:
           heroku_app_name: "sly2m-bot" #Must be unique in Heroku
           heroku_email: "artemprokhorov@gmail.com"
           usedocker: true
-          stack: "container"
+          docker_heroku_process_type: "worker"
         env:
             HD_BOT_API_KEY: ${{ secrets.BOT_API_KEY }}
             HD_STOCK_API_KEY: ${{ secrets.STOCK_API_KEY }}
