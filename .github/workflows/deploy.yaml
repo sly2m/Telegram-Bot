@@ -4,25 +4,26 @@ on:
     push:
         branches: [main]
 
-
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      
-      - uses: akhileshns/heroku-deploy@v3.13.15 
-        with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "sly2m-bot" #Must be unique in Heroku
-          heroku_email: "artemprokhorov@gmail.com"
-          usedocker: true
-          docker_heroku_process_type: "worker"
-        env:
-            HD_BOT_API_KEY: ${{ secrets.BOT_API_KEY }}
-            HD_STOCK_API_KEY: ${{ secrets.STOCK_API_KEY }}
-            HD_CURRENCY_API_KEY: ${{ secrets.CURRENCY_API_KEY }}
-            HD_MEME_PAGE_URL: ${{ vars.MEME_PAGE_URL }}
-            HD_ANEK_PAGE_URL: ${{ vars.ANEK_PAGE_URL }}
-            HD_ANEK_SEARCH_URL: ${{ vars.ANEK_SEARCH_URL }}
-            HD_PORT: '3000'
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+
+            - uses: akhileshns/heroku-deploy@v3.13.15
+              with:
+                  heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+                  heroku_app_name: 'sly2m-bot' #Must be unique in Heroku
+                  heroku_email: 'artemprokhorov@gmail.com'
+                  usedocker: true
+                  docker_build_args: |
+                      PORT
+              env:
+                  HD_BOT_API_KEY: ${{ secrets.BOT_API_KEY }}
+                  HD_STOCK_API_KEY: ${{ secrets.STOCK_API_KEY }}
+                  HD_CURRENCY_API_KEY: ${{ secrets.CURRENCY_API_KEY }}
+                  HD_MEME_PAGE_URL: ${{ vars.MEME_PAGE_URL }}
+                  HD_ANEK_PAGE_URL: ${{ vars.ANEK_PAGE_URL }}
+                  HD_ANEK_SEARCH_URL: ${{ vars.ANEK_SEARCH_URL }}
+                  PORT: 3000
+                  HD_PORT: 3000
